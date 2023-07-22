@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "录录",
+    "description": "录制网页操作，避免偶发bug在线battle",
+    "version": "0.1",
+    "icons": {
+        "16": "icon/icon.png",
+        "48": "icon/icon.png",
+        "128": "icon/icon.png"
+    },
+    "action": {
+        "default_icon": {
+            "19": "icon/icon.png",
+            "38": "icon/icon.png"
+        },
+        "default_title": "all in plugin",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "contextMenus",
+        "tabs",
+        "notifications",
+        "webRequest",
+        "storage"
+    ],
+    "background": {
+        "service_worker": "background/main.js"
+    }
+}
