@@ -1,0 +1,60 @@
+/* button_styles.css */
+.lulu-floating-button {
+    position: fixed;
+    top: 40vh;
+    right: 20px;
+    background-color: #dfe9dc;
+    color: #ffffff;
+    padding: 10px;
+    border: 3px solid #dfe9dc;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.lulu-floating-button.dragging {
+    cursor: grabbing;
+    opacity: 0.8;
+}
+
+.lulu-projector {
+    position: fixed;
+    opacity: 0;
+    left: calc(50% - 607px);
+    top: 100px;
+    z-index: -100;
+    width: 1215px;
+    height: 800px;
+    border: #ffffff 3px solid;
+    background-color: aqua;
+    border-radius: 10px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: auto;
+    transition: .6s;
+}
+
+.lulu-projector.active {
+    z-index: 2147483647;
+    background-color: #ffffff;
+    animation: fade-in 0.6s ease-in-out forwards;
+}
+
+.lulu-projector .lulu-projector-content {
+    position: relative;
+}
+
+@keyframes fade-in{
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.05);
+    }
+    100% {
+        opacity: 1;
+    }
+}

@@ -21,7 +21,32 @@
         "tabs",
         "notifications",
         "webRequest",
-        "storage"
+        "storage",
+        "debugger"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content/main.js"
+            ],
+            "css": [
+                "content/style.css",
+                "content/replayer.css"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "assets/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
     ],
     "background": {
         "service_worker": "background/main.js"
