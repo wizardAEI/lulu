@@ -29,28 +29,30 @@ class RecorderEventCenter {
 
 export const recorderEventCenter = new RecorderEventCenter();
 
-let events = [];
+let browserEvents = [];
 let recorderStopFn =  null
 export function recorderStart(){
     recorderStopFn = rrweb.record({
         emit(event) {
           // push event into the events array
-          events.push(event);
-          if(events.length > 100){
-            events.shift();
+          browserEvents.push(event);
+          if(browserEvents.length > 100){
+            browserEvents.shift();
           }
         },
         blockClass: /^lulu-*/g,
     });
 }
 export function recorderStop(){
-    recorderStopFn && recorderStopFn()
+    if(recorderStopFn) {
+        recorderStopFn()
+    } 
     recorderStopFn = null
 }
 
 // this function will send events to the backend and reset the events array
 export function save() {
-  const body = JSON.stringify({ events });
-  events = [];
+  const body = JSON.stringify({ events: browserEvents });
+  browserEvents = [];
   recorderEventCenter.publish('onSave', body);
 }

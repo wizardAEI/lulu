@@ -1,6 +1,7 @@
 /* button_styles.css */
 .lulu-floating-button {
     position: fixed;
+    z-index: 2147483647;
     top: 40vh;
     right: 20px;
     background-color: #dfe9dc;

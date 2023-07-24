@@ -4,16 +4,14 @@ const projector = document.createElement("div");
 projector.className = 'lulu-projector'
 document.body.appendChild(projector)
 
-
-const contentDom = document.createElement("div");
-contentDom.className = 'lulu-projector-content'
-projector.appendChild(contentDom)
-
 let player = null
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type === 'onPlayRecorder') {
         projector.className = 'lulu-projector active'
-        contentDom.innerHTML = ''
+        projector.innerHTML = ''
+        const contentDom = document.createElement("div");
+        contentDom.className = 'lulu-projector-content'
+        projector.appendChild(contentDom)
         player = null
         player =  new rrwebPlayer({
             target: contentDom,

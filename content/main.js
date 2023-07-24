@@ -3952,41 +3952,48 @@
 
     const recorderEventCenter = new RecorderEventCenter();
 
-    let events = [];
+    let browserEvents = [];
     let recorderStopFn =  null;
     function recorderStart(){
         recorderStopFn = record({
             emit(event) {
               // push event into the events array
-              events.push(event);
-              if(events.length > 100){
-                events.shift();
+              browserEvents.push(event);
+              if(browserEvents.length > 100){
+                browserEvents.shift();
               }
             },
             blockClass: /^lulu-*/g,
         });
     }
     function recorderStop(){
-        recorderStopFn && recorderStopFn();
+        if(recorderStopFn) {
+            recorderStopFn();
+        } 
         recorderStopFn = null;
     }
 
     // this function will send events to the backend and reset the events array
     function save() {
-      const body = JSON.stringify({ events });
-      events = [];
+      const body = JSON.stringify({ events: browserEvents });
+      browserEvents = [];
       recorderEventCenter.publish('onSave', body);
     }
 
     const button = document.createElement("button");
     button.classList.add("lulu-floating-button");
+    button.classList.add("hide");
     // use the svg from chrome extension
     const recordSvg = chrome.runtime.getURL("assets/record_fill.svg");
     const pauseSvg = chrome.runtime.getURL("assets/pause.svg");
     button.style.backgroundImage = `url(${recordSvg})`;
     button.showCloseButton = false;
     document.body.appendChild(button);
-
+    window.onload = function () {
+      setTimeout(() => {
+        button.classList.remove("hide");
+      }, 600);
+    };
 
     let isDragging = false;
     let isMoving = false;
@@ -4044,7 +4051,6 @@
     });
 
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-      console.log('request', request);
       if (request.type === 'onHideRecorderBtn') {
           button.classList.add('hide');
       }else if (request.type === 'onShowRecorderBtn') {
@@ -4087,16 +4093,14 @@
     projector.className = 'lulu-projector';
     document.body.appendChild(projector);
 
-
-    const contentDom = document.createElement("div");
-    contentDom.className = 'lulu-projector-content';
-    projector.appendChild(contentDom);
-
     let player = null;
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         if (request.type === 'onPlayRecorder') {
             projector.className = 'lulu-projector active';
-            contentDom.innerHTML = '';
+            projector.innerHTML = '';
+            const contentDom = document.createElement("div");
+            contentDom.className = 'lulu-projector-content';
+            projector.appendChild(contentDom);
             player = null;
             player =  new Qn({
                 target: contentDom,

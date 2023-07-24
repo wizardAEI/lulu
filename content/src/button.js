@@ -3,13 +3,18 @@ import { save as recordSave, recorderStart, recorderStop } from "./record";
 
 const button = document.createElement("button");
 button.classList.add("lulu-floating-button");
+button.classList.add("hide");
 // use the svg from chrome extension
 const recordSvg = chrome.runtime.getURL("assets/record_fill.svg");
 const pauseSvg = chrome.runtime.getURL("assets/pause.svg");
 button.style.backgroundImage = `url(${recordSvg})`;
 button.showCloseButton = false
 document.body.appendChild(button);
-
+window.onload = function () {
+  setTimeout(() => {
+    button.classList.remove("hide");
+  }, 600)
+};
 
 let isDragging = false;
 let isMoving = false;
@@ -67,7 +72,6 @@ button.addEventListener("click", function () {
 })
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log('request', request)
   if (request.type === 'onHideRecorderBtn') {
       button.classList.add('hide')
   }else if (request.type === 'onShowRecorderBtn') {
