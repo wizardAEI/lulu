@@ -17,6 +17,7 @@
     "@rollup/plugin-commonjs": "^25.0.3",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.1.0",
+    "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-import-css": "^3.3.1"
   },
   "type": "module"

@@ -13,7 +13,7 @@ document.body.appendChild(button);
 window.onload = function () {
   setTimeout(() => {
     button.classList.remove("hide");
-  }, 600)
+  })
 };
 
 let isDragging = false;
@@ -45,18 +45,17 @@ document.addEventListener("mouseup", function () {
   setTimeout(() => isMoving = false, 600)
 });
 
-// 点击按钮而非拖拽的逻辑
+// click event but not drag
 button.addEventListener("click", function () {
 
   if (button.showCloseButton) {
     const projector = document.querySelector('.lulu-projector')
+    projector.innerHTML = ''
     projector.classList.remove('active')
     button.showCloseButton = false
     isRecording ? button.style.backgroundImage = `url(${pauseSvg})` : button.style.backgroundImage = `url(${recordSvg})`;
     return
   }
-
-  // 判断是否在拖拽
   if (isMoving) {
     return;
   }

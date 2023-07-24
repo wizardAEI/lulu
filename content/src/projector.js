@@ -8,7 +8,7 @@ let player = null
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.type === 'onPlayRecorder') {
         projector.className = 'lulu-projector active'
-        projector.innerHTML = ''
+        console.log(request.events)
         const contentDom = document.createElement("div");
         contentDom.className = 'lulu-projector-content'
         projector.appendChild(contentDom)
@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             props: {
                 events: request.events,
                 width: 1200,
-                height: 800,
+                height: 700,
             }
         })
         button.style.backgroundImage = `url(${chrome.runtime.getURL("assets/close_fill.svg")})`;
