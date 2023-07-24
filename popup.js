@@ -5724,4 +5724,17 @@
 	    });
 	}
 
+	function hideRecorderBtn() {
+	    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+	        chrome.tabs.sendMessage(tabs[0].id, {type: 'onHideRecorderBtn'});
+	    });
+	}
+	function showRecorderBtn() {
+	    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+	        chrome.tabs.sendMessage(tabs[0].id, {type: 'onShowRecorderBtn'});
+	    });
+	}
+	document.getElementById('hide-btn').addEventListener('click', hideRecorderBtn);
+	document.getElementById('show-btn').addEventListener('click', showRecorderBtn);
+
 }));

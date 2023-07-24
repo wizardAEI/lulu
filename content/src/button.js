@@ -66,5 +66,13 @@ button.addEventListener("click", function () {
   }
 })
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log('request', request)
+  if (request.type === 'onHideRecorderBtn') {
+      button.classList.add('hide')
+  }else if (request.type === 'onShowRecorderBtn') {
+      button.classList.remove('hide')
+  }
+})
 
 export default button

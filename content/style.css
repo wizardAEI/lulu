@@ -15,6 +15,10 @@
     background-position: center;
 }
 
+.lulu-floating-button.hide {
+    display: none;
+}
+
 .lulu-floating-button.dragging {
     cursor: grabbing;
     opacity: 0.8;
@@ -24,10 +28,10 @@
     position: fixed;
     opacity: 0;
     left: calc(50% - 607px);
-    top: 100px;
+    top: 50px;
     z-index: -100;
     width: 1215px;
-    height: 800px;
+    max-height: calc(100vh - 100px);
     border: #ffffff 3px solid;
     background-color: aqua;
     border-radius: 10px;
