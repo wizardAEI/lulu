@@ -36,8 +36,10 @@ export function recorderStart(){
         emit(event) {
           // push event into the events array
           browserEvents.push(event);
-          if(browserEvents.length > 100){
-            browserEvents.shift();
+          if(browserEvents.length > 1000){
+            save()
+            // TODO: shift events but not the first one (the first save the meta data)
+            // browserEvents.shift();
           }
         },
         blockClass: /^lulu-*/g,
@@ -50,7 +52,7 @@ export function recorderStop(){
     recorderStopFn = null
 }
 
-// this function will send events to the backend and reset the events array
+// this function will send events to the background and reset the events array
 export function save() {
   const body = JSON.stringify({ events: browserEvents });
   browserEvents = [];
